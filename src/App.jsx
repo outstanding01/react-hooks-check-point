@@ -1,7 +1,8 @@
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React, { useState } from 'react';
 import MovieList from './components/MovieList';
 import Filter from './components/Filter';
+import MovieDetailPage from './components/MovieDetailPage';
 
 function App() {
   const [movies, setMovies] = useState([
@@ -28,10 +29,15 @@ function App() {
 
   return (
     <>
-      <div>
-        <Filter onFilterChange={handleFilterChange} />
-        <MovieList movies={filteredMovies} />
-      </div>
+      <Router>
+        <Routes>
+          {/* Home Page */}
+          <Route path="/" element={<div><Filter onFilterChange={handleFilterChange} /><MovieList movies={filteredMovies} /></div>} />
+
+          {/* Movie Detail Page */}
+          <Route path="/movie/:title" element={<MovieDetailPage movies={movies} />} />
+        </Routes>
+    </Router>
     </>
   );
 }
